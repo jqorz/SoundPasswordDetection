@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources><!--列表项的尺寸-->
+    <dimen name="list_left_padding">20dp</dimen>
+    <dimen name="list_item_height">59dp</dimen>
+    <dimen name="list_item_large_height">69dp</dimen>
+    <dimen name="list_iv_size">18dp</dimen>
+    <dimen name="list_iv_big_size">23dp</dimen>
+    <dimen name="list_tv_size">16sp</dimen>
+    <dimen name="list_tv_size_small">14sp</dimen>
+</resources>

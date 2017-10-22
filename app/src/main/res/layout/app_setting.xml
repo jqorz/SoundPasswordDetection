@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jqorz.speechdetection.frame.App_Setting">
+
+    <RelativeLayout style="@style/List_rv">
+
+        <TextView
+            android:id="@+id/tv_SelectedLanguage"
+            style="@style/List_tv_Left"
+            android:text="当前语言"
+            android:textColor="@color/black" />
+
+        <TextView
+            style="@style/List_tv_Right"
+            android:text="普通话" />
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

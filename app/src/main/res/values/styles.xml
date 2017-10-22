@@ -1,0 +1,51 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!--通用列表项的RelativeLayout-->
+    <style name="List_rv">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/list_item_height</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">?android:selectableItemBackground</item>
+    </style>
+
+    <!--通用列表项的左侧TextView-->
+    <style name="List_tv_Left">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">@dimen/list_left_padding</item>
+        <item name="android:textColor">@color/black2</item>
+        <item name="android:textSize">@dimen/list_tv_size</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+    <!--通用列表项的右侧TextView-->
+    <style name="List_tv_Right">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginRight">@dimen/list_left_padding</item>
+        <item name="android:textColor">@color/black2</item>
+        <item name="android:textSize">@dimen/list_tv_size</item>
+    </style>
+    <!--通用列表项的右侧ImageView-->
+    <style name="List_iv_Right">
+        <item name="android:layout_width">@dimen/list_iv_size</item>
+        <item name="android:layout_height">@dimen/list_iv_size</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:background">@drawable/ic_next</item>
+        <item name="android:layout_marginRight">@dimen/list_left_padding</item>
+    </style>
+    <style name="textStyle">
+        <item name="android:textSize">16sp</item>
+    </style>
+</resources>

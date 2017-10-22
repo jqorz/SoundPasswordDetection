@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">芝麻开门</string>
+    <string name="app_id">59dcc386</string>
+    <string name="app_setting">设置</string>
+    <string name="action_setting">查看用户</string>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#36ab60</color>
+    <color name="colorPrimaryDark">#2d8b4e</color>
+    <color name="colorAccent">#36ab60</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="black2">#666666</color>
+    <color name="blue">#2398ff</color>
+    <!--深蓝色-->
+    <color name="mazarine">#1976D2</color>
+    <color name="red">#d81e06</color>
+    <color name="pink">#f4a59a</color>
+    <!--青色-->
+    <color name="cyan">#1aaba8</color>
+    <color name="yellow">#f2df32</color>
+    <color name="green">#26ca05</color>
+    <color name="gray">#999999</color>
+    <color name="wathet">#d7dfff</color>
+    <color name="wathet_dark">#8f9ee4</color>
+
+
+    <color name="btn_focus">#dfdfdf</color>
+    <color name="main_background">#efefef</color>
+    <color name="text_unfocus">#98ffffff</color>
+    <color name="iv_unfocus">#98ffffff</color>
+    <color name="view">#b8b8b8</color>
+</resources>
