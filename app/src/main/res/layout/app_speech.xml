@@ -5,8 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context="com.jqorz.soundpassworddetection.frame.App_Speech">
+    tools:context="com.jqorz.soundpassworddetection.mvp.App_Speech">
 
+    <ImageView
+        android:id="@+id/iv_Setting"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="24dp"
+        android:src="@drawable/ic_settings" />
 
     <TextView
         android:id="@+id/tv_Tip"
@@ -15,6 +22,21 @@
         android:gravity="center"
         android:padding="10dp"
         android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/btn_Open"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_Tip"
+        android:text="open" />
+
+    <Button
+        android:id="@+id/btn_Close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_Tip"
+        android:layout_toEndOf="@+id/btn_Open"
+        android:text="close" />
 
     <com.carlos.voiceline.mylibrary.VoiceLineView
         android:id="@+id/mVoiceLineView"

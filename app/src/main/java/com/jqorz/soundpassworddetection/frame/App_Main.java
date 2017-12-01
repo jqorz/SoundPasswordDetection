@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import com.iflytek.cloud.SpeechUtility;
 import com.jqorz.soundpassworddetection.R;
 import com.jqorz.soundpassworddetection.base.BaseActivity;
+import com.jqorz.soundpassworddetection.mvp.App_Speech;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 import com.yanzhenjie.permission.Rationale;
@@ -46,7 +47,7 @@ public class App_Main extends BaseActivity {
                     public void onSucceed(int requestCode, @NonNull List<String> grantedPermissions) {
                         if (requestCode == PERMISSION_CODE) {
                             App_Main.this.finish();
-                            startActivity(new Intent(App_Main.this, App_FaceTracking.class));
+                            startActivity(new Intent(App_Main.this, App_Speech.class));
                         }
                     }
 
@@ -54,7 +55,7 @@ public class App_Main extends BaseActivity {
                     public void onFailed(int requestCode, @NonNull List<String> deniedPermissions) {
                         if (AndPermission.hasPermission(App_Main.this, Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)) {
                             App_Main.this.finish();
-                            startActivity(new Intent(App_Main.this, App_FaceTracking.class));
+                            startActivity(new Intent(App_Main.this, App_Speech.class));
                         } else if (requestCode == PERMISSION_CODE) {// 是否有不再提示并拒绝的权限。
                             AndPermission.defaultSettingDialog(App_Main.this, 400).show();
                         }
