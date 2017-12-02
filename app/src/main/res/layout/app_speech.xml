@@ -23,20 +23,7 @@
         android:padding="10dp"
         android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/btn_Open"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_Tip"
-        android:text="open" />
 
-    <Button
-        android:id="@+id/btn_Close"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_Tip"
-        android:layout_toEndOf="@+id/btn_Open"
-        android:text="close" />
 
     <com.carlos.voiceline.mylibrary.VoiceLineView
         android:id="@+id/mVoiceLineView"

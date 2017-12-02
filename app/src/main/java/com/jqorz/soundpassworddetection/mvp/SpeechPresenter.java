@@ -86,7 +86,6 @@ public class SpeechPresenter implements SpeechContract.Presenter {
             }
 
             String cmd = resultBuffer.toString();
-            mView.showTip(resultBuffer.toString());
             doCommand(cmd);
 
         }
@@ -113,7 +112,6 @@ public class SpeechPresenter implements SpeechContract.Presenter {
 
         @Override
         public void onResult(VerifierResult result) {
-            Logg.i(result.source);
 
             if (result.ret == ErrorCode.SUCCESS) {
                 switch (result.err) {
@@ -147,7 +145,7 @@ public class SpeechPresenter implements SpeechContract.Presenter {
 
                     mView.showTip("注册成功");
                     UserDataUtil.updateUserData(mContext, ConsShared.USER_TEXT_PSD, result.vid);
-                    Logg.i("您的文本密码声纹ID：" + result.vid);
+                    Logg.e("您的文本密码声纹ID：" + result.vid);
                 } else {
                     int nowTimes = result.suc + 1;
                     int leftTimes = result.rgn - nowTimes;
@@ -289,7 +287,6 @@ public class SpeechPresenter implements SpeechContract.Presenter {
                 JSONObject object = new JSONObject(result);
                 String cmd = object.getString("cmd");
                 int ret = object.getInt("ret");
-                Logg.e("object=" + object.toString());
                 if ("del".equals(cmd)) {
                     if (ret == ErrorCode.SUCCESS) {
                         UserDataUtil.updateUserData(mContext, ConsShared.USER_TEXT_PSD, "");
@@ -337,6 +334,7 @@ public class SpeechPresenter implements SpeechContract.Presenter {
     }
 
     private void doCommand(String cmd) {
+        mView.showTip(cmd);
         switch (cmd) {
             case "打开手电筒":
             case "打开闪光灯":
@@ -345,6 +343,27 @@ public class SpeechPresenter implements SpeechContract.Presenter {
             case "关闭闪光灯":
             case "关闭手电筒":
                 mView.switchFlashLight(false);
+                break;
+            case "打开QQ":
+                mView.toOpenApp("com.tencent.mobileqq");
+                mTts.startSpeaking("好的，正在打开QQ", null);
+                break;
+            case "打开微信":
+                mView.toOpenApp("com.tencent.mm");
+                mTts.startSpeaking("好的，正在打开微信", null);
+                break;
+            default:
+                if (cmd.startsWith("打电话给")) {
+                    String name = cmd.substring(4);
+                    Logg.e("识别到的名字为", name);
+                    String phoneNum = CommandUtil.getContractNumber(mContext, name);
+                    if (phoneNum != null) {
+                        mView.toCall(phoneNum);
+                    } else {
+                        mView.showTip("抱歉，没有找到该联系人");
+                    }
+                } else
+                    mTts.startSpeaking("抱歉，我做不到", null);
                 break;
         }
     }
@@ -513,7 +532,6 @@ public class SpeechPresenter implements SpeechContract.Presenter {
      * @param command 操作命令 que-查询模型是否存在 del-删除模型
      */
     private void performModelOperation(int command) {
-        Logg.e("cmd=" + command);
         String operation;
         if (command == MODEL_DELETE) {
             operation = "del";

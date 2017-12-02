@@ -1,6 +1,9 @@
 package com.jqorz.soundpassworddetection.mvp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
@@ -40,7 +43,7 @@ public class App_Speech extends BaseActivity implements SpeechContract.View {
         new SpeechPresenter(this, this);
     }
 
-    @OnClick({R.id.btn_Speak, R.id.iv_Setting, R.id.btn_Close, R.id.btn_Open})
+    @OnClick({R.id.btn_Speak, R.id.iv_Setting})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_Speak:
@@ -48,13 +51,6 @@ public class App_Speech extends BaseActivity implements SpeechContract.View {
                 break;
             case R.id.iv_Setting:
                 mPresenter.onClickSettingBtn(iv_Setting);
-                break;
-            case R.id.btn_Open:
-                commandUtil.lightSwitch(true, this);
-                break;
-            case R.id.btn_Close:
-                commandUtil.lightSwitch(false, this);
-
                 break;
         }
 
@@ -88,6 +84,22 @@ public class App_Speech extends BaseActivity implements SpeechContract.View {
     @Override
     public void switchFlashLight(boolean flag) {
         commandUtil.lightSwitch(flag, this);
+    }
+
+    @Override
+    public void toCall(String number) {
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
+    @Override
+    public void toOpenApp(String appName) {
+        PackageManager packageManager = this.getPackageManager();
+        Intent intent = packageManager.getLaunchIntentForPackage(appName);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        this.startActivity(intent);
+
     }
 
     @Override

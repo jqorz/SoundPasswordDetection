@@ -27,6 +27,10 @@ import com.jqorz.soundpassworddetection.base.BaseView;
         void showUserListDialog(String userID);
 
         void switchFlashLight(boolean flag);
+
+        void toCall(String number);
+
+        void toOpenApp(String name);
     }
 
     interface Presenter extends BasePresenter {
