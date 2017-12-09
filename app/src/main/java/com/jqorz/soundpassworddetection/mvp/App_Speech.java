@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -31,8 +33,7 @@ public class App_Speech extends BaseActivity implements SpeechContract.View {
     Button btn_Speak;
     @BindView(R.id.mVoiceLineView)
     VoiceLineView mVoiceLineView;
-    @BindView(R.id.iv_Setting)
-    ImageView iv_Setting;
+
     private CommandUtil commandUtil = new CommandUtil();
     private Animation BreathAnimation;//按钮的呼吸动画
     private SpeechContract.Presenter mPresenter;
@@ -43,17 +44,33 @@ public class App_Speech extends BaseActivity implements SpeechContract.View {
         new SpeechPresenter(this, this);
     }
 
-    @OnClick({R.id.btn_Speak, R.id.iv_Setting})
+    @OnClick({R.id.btn_Speak})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_Speak:
                 mPresenter.onClickSpeakBtn();
                 break;
-            case R.id.iv_Setting:
-                mPresenter.onClickSettingBtn(iv_Setting);
-                break;
+
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_setting:
+                mPresenter.onClickSettingBtn();
+                break;
+
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -97,9 +114,12 @@ public class App_Speech extends BaseActivity implements SpeechContract.View {
     public void toOpenApp(String appName) {
         PackageManager packageManager = this.getPackageManager();
         Intent intent = packageManager.getLaunchIntentForPackage(appName);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        this.startActivity(intent);
-
+        if (intent != null) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            this.startActivity(intent);
+        } else {
+            ToastUtil.showToast(this, "未找到该应用");
+        }
     }
 
     @Override
@@ -148,13 +168,7 @@ public class App_Speech extends BaseActivity implements SpeechContract.View {
         ToastUtil.showToast(this, tip);
     }
 
-    @Override
-    public void rotateAni(View v) {
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate_animator);
-        v.startAnimation(animation);
-        mPresenter.onRotateAniEnd(animation);
 
-    }
 
     @OnLongClick(R.id.iv_Setting)
     public boolean onLong(View v) {

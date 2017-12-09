@@ -1,12 +1,10 @@
 package com.jqorz.soundpassworddetection.mvp;
 
-import android.view.animation.Animation;
-
 import com.jqorz.soundpassworddetection.base.BasePresenter;
 import com.jqorz.soundpassworddetection.base.BaseView;
 
 
- class SpeechContract {
+class SpeechContract {
     public enum RESULT_TYPE {
         TYPE_PASS, TYPE_NOT_PASS, TYPE_ERROR
     }
@@ -22,7 +20,6 @@ import com.jqorz.soundpassworddetection.base.BaseView;
 
         void showToast(String tip);
 
-        void rotateAni(android.view.View v);
 
         void showUserListDialog(String userID);
 
@@ -40,9 +37,8 @@ import com.jqorz.soundpassworddetection.base.BaseView;
 
         void deleteModel();
 
-        void onRotateAniEnd(Animation animation);
 
-        void onClickSettingBtn(android.view.View v);
+        void onClickSettingBtn();
 
     }
 

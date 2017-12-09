@@ -50,7 +50,6 @@ public class SpeechPresenter implements SpeechContract.Presenter {
     private String mTextPwd = "芝麻开门";// 文本声纹密码内容
     private int mPwdType = 1;//使用文本密码
     private Context mContext;
-    private CommandUtil commandUtil = new CommandUtil();
     //语音听写监听器
     private RecognizerListener mRecognizerListener = new RecognizerListener() {
         @Override
@@ -86,7 +85,8 @@ public class SpeechPresenter implements SpeechContract.Presenter {
             }
 
             String cmd = resultBuffer.toString();
-            doCommand(cmd);
+            if (isLast)
+                doCommand(cmd);
 
         }
 
@@ -169,7 +169,7 @@ public class SpeechPresenter implements SpeechContract.Presenter {
             if (error.getErrorCode() == ErrorCode.MSP_ERROR_ALREADY_EXIST) {
                 mView.showPicTip(TYPE_ERROR, "模型已存在，如需重新注册，请先删除");
             } else {
-                mView.showTip(error.getPlainDescription(true));
+                mView.showPicTip(TYPE_ERROR, error.getPlainDescription(true));
                 Logg.e(error.getPlainDescription(true));
             }
         }
@@ -345,12 +345,80 @@ public class SpeechPresenter implements SpeechContract.Presenter {
                 mView.switchFlashLight(false);
                 break;
             case "打开QQ":
-                mView.toOpenApp("com.tencent.mobileqq");
-                mTts.startSpeaking("好的，正在打开QQ", null);
+                mTts.startSpeaking("好的，正在打开QQ", new SynthesizerListener() {
+                    @Override
+                    public void onSpeakBegin() {
+
+                    }
+
+                    @Override
+                    public void onBufferProgress(int i, int i1, int i2, String s) {
+
+                    }
+
+                    @Override
+                    public void onSpeakPaused() {
+
+                    }
+
+                    @Override
+                    public void onSpeakResumed() {
+
+                    }
+
+                    @Override
+                    public void onSpeakProgress(int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onCompleted(SpeechError speechError) {
+                        mView.toOpenApp("com.tencent.mobileqq");
+                    }
+
+                    @Override
+                    public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
+                    }
+                });
                 break;
             case "打开微信":
-                mView.toOpenApp("com.tencent.mm");
-                mTts.startSpeaking("好的，正在打开微信", null);
+                mTts.startSpeaking("好的，正在打开微信", new SynthesizerListener() {
+                    @Override
+                    public void onSpeakBegin() {
+
+                    }
+
+                    @Override
+                    public void onBufferProgress(int i, int i1, int i2, String s) {
+
+                    }
+
+                    @Override
+                    public void onSpeakPaused() {
+
+                    }
+
+                    @Override
+                    public void onSpeakResumed() {
+
+                    }
+
+                    @Override
+                    public void onSpeakProgress(int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onCompleted(SpeechError speechError) {
+                        mView.toOpenApp("com.tencent.mm");
+                    }
+
+                    @Override
+                    public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
+                    }
+                });
                 break;
             default:
                 if (cmd.startsWith("打电话给")) {
@@ -483,8 +551,8 @@ public class SpeechPresenter implements SpeechContract.Presenter {
     }
 
     private void startListenCommend() {
-        mView.showTip("你好，你想让我做什么呢");
-        mTts.startSpeaking("你好，你想让我做什么呢", new SynthesizerListener() {
+        mView.showTip("你好，有何吩咐");
+        mTts.startSpeaking("你好，有何吩咐", new SynthesizerListener() {
             @Override
             public void onSpeakBegin() {
 
@@ -563,35 +631,24 @@ public class SpeechPresenter implements SpeechContract.Presenter {
         performModelOperation(MODEL_DELETE);
     }
 
-    @Override
-    public void onRotateAniEnd(Animation animation) {
-        animation.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
 
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                String userID = UserDataUtil.loadUserData(mContext, ConsShared.USER_TEXT_PSD);
-                mView.showUserListDialog(userID);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-    }
 
     @Override
-    public void onClickSettingBtn(View v) {
-        mView.rotateAni(v);
+    public void onClickSettingBtn() {
+        String userID = UserDataUtil.loadUserData(mContext, ConsShared.USER_TEXT_PSD);
+        mView.showUserListDialog(userID);
     }
 
 
     @Override
     public void onClickSpeakBtn() {
+        if (mTts.isSpeaking()) {
+            mTts.stopSpeaking();
+        }
+        if (mIat.isListening()) {
+            mIat.stopListening();
+        }
+
         if (mVerifier.isListening()) {
             mVerifier.cancel();
             mView.showTip("");
